@@ -31,8 +31,33 @@ const createDeck = () => {
       deck.push(card);
     }
   }
-  console.log("deck:", deck);
+  // console.log("deck:", deck);
   return deck;
 };
 
-createDeck();
+const newDeck = createDeck();
+
+// shuffle the cards
+const shuffleDeck = (cards) => {
+  // loop over the cards array
+  for (let i = 0; i < cards.length; i++) {
+    // select a random index in the cards
+    const randomIndex = Math.floor(Math.random() * cards.length);
+    const temp = cards[i]; // placeholder for deck[i]
+    cards[i] = cards[randomIndex]; // replace current card index with random index
+    cards[randomIndex] = temp; // replace the random index with the temp value
+  }
+  console.log("shuffled cards:", cards);
+  return cards;
+};
+shuffleDeck(newDeck);
+
+// ===============================================
+// ========= Deal 5 cards to playerhand  =========
+// ===============================================
+
+let playerHand = [];
+
+// set the max length of playerHand to 5 as we only deal 5 cards
+playerHand = newDeck.splice(0, 5);
+console.log(playerHand);
