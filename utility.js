@@ -47,7 +47,7 @@ const shuffleDeck = (cards) => {
     cards[i] = cards[randomIndex]; // replace current card index with random index
     cards[randomIndex] = temp; // replace the random index with the temp value
   }
-  console.log("shuffled cards:", cards);
+  // console.log("shuffled cards:", cards);
   return cards;
 };
 shuffleDeck(newDeck);
@@ -60,4 +60,4 @@ let playerHand = [];
 
 // set the max length of playerHand to 5 as we only deal 5 cards
 playerHand = newDeck.splice(0, 5);
-console.log(playerHand);
+// console.log(playerHand);

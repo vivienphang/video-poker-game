@@ -1,0 +1,187 @@
+* {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: customFont;
+  src: url(./public/BagelFatOne-Regular.ttf);
+}
+
+body {
+  background-color: rgb(20, 60, 20);
+  font-family: customFont, sans-serif;
+  color: bisque;
+  background-color: rgb(20, 60, 20);
+}
+
+#main-container {
+  /* background-color: royalblue; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+#game-header {
+  font-size: xx-large;
+  letter-spacing: 4px;
+  height: 25%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+}
+
+/* ===================== Message Container UI ===================== */
+
+#message-container {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+  width: 100%;
+  height: 100px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border: 1px solid rgb(193, 217, 126);
+}
+
+/* ======================= Game Container UI ======================= */
+
+#game-container {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: x-large;
+  width: 100%;
+  height: 50%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  border: 1px solid rgb(232, 162, 237);
+}
+
+.card {
+  border: 2px solid rgb(90, 180, 240);
+  height: 120px;
+  width: 80px;
+}
+
+.selected {
+  border: 7px solid rgb(45, 247, 143);
+  height: 120px;
+  width: 80px;
+}
+
+/* ======================= Table Container UI ======================= */
+
+#table-container {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: x-large;
+  width: 100%;
+  height: 20%;
+  padding: 5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  border: 1px solid rgb(165, 238, 242);
+}
+
+.deal-btn {
+  font-family: customFont;
+  border-radius: 50%;
+  border: 3px dashed red;
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: rgb(26, 21, 13);
+  color: white;
+}
+
+.deal-btn:hover {
+  background-color: rgb(233, 221, 89);
+  color: black;
+  cursor: pointer;
+}
+
+.deal-btn:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+  color: white;
+}
+
+.bet-btn {
+  font-family: customFont;
+  border-radius: 50%;
+  border: 3px dashed red;
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: rgb(26, 21, 13);
+  color: white;
+}
+
+.bet-btn:hover {
+  background-color: rgb(233, 221, 89);
+  color: black;
+  cursor: pointer;
+}
+
+.bet-btn:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+  color: white;
+}
+
+.draw-btn {
+  font-family: customFont;
+  border-radius: 50%;
+  border: 3px dashed red;
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: rgb(26, 21, 13);
+  color: white;
+}
+
+.draw-btn:hover {
+  background-color: rgb(233, 221, 89);
+  color: black;
+  cursor: pointer;
+}
+
+.draw-btn:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+  color: white;
+}
+
+/* ==================== Tablet / Mobile UI ==================== */
+
+@media (min-width: 280px) and (max-width: 450px) {
+  #game-header {
+    letter-spacing: 2px;
+    color: bisque;
+    font-size: x-large;
+    height: 100px;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    line-height: 1.5em;
+  }
+  #message-container {
+    font-size: large;
+    width: 90%;
+    height: inherit;
+  }
+  #game-container {
+    font-size: large;
+    width: 90%;
+    height: inherit;
+  }
+  #table-container {
+    font-size: large;
+    width: 90%;
+    height: inherit;
+  }
+}

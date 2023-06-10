@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Poker</title>
+  </head>
+  <body>
+    <div id="main-container">
+      <div id="game-header">
+        <h2>POKER HOUR</h2>
+      </div>
+      <section id="message-container">
+        <div id="message-board"></div>
+        <!-- for displaying instructions, game status, score and bets -->
+      </section>
+      <section id="game-container">
+        <!-- for displaying game cards -->
+        <img class="card-img" />
+      </section>
+      <section id="table-container">
+        <!-- for displaying buttons and bets -->
+        <button type="submit" class="bet-btn"></button>
+        <button type="submit" class="deal-btn"></button>
+        <button type="submit" class="draw-btn"></button>
+      </section>
+    </div>
+    <script src="utility.js"></script>
+    <script src="game-logic.js"></script>
+  </body>
+</html>
