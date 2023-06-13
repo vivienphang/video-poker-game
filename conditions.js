@@ -17,7 +17,7 @@ const tallyRanks = () => {
     rankTally[cardRank] = cardRank in rankTally ? rankTally[cardRank] + 1 : 1;
   }
 };
-// tallyRanks();
+tallyRanks();
 // Helper function to tally suits
 const tallySuits = () => {
   for (let i = 0; i < playerHand.length; i++) {
@@ -27,7 +27,7 @@ const tallySuits = () => {
       cardSuits in suitTally ? suitTally[cardSuits] + 1 : 1;
   }
 };
-// tallySuits();
+tallySuits();
 // console.log("suitTally obj", suitTally);
 const isFourOfAKind = () => {
   if (
@@ -53,13 +53,15 @@ const isFlush = () => {
 const isStraight = () => {
   // Sort the rank of cards first
   const sortedCards = playerHand.sort((a, b) => a.rank - b.rank);
-  // Check if biggest minus smallest value is 4 and total arr.length is 5
-  if (
-    sortedCards[4].rank - sortedCards[0].rank === 4 &&
-    Object.values(rankTally).length === 5
-  ) {
-    console.log("Straight win!");
-    return true;
+  console.log("sortedcards", sortedCards);
+  // Check if the difference between highest and lowest rank is 4
+  if (sortedCards[4].rank - sortedCards[0].rank === 4) {
+    // Check if unique ranks (key) are 5
+    const uniqueRanks = new Set(sortedCards.map((card) => card.rank));
+    if (uniqueRanks === 5) {
+      console.log("Straight win!");
+      return true;
+    }
   }
   return false;
 };
@@ -92,25 +94,19 @@ const isOnePair = () => {
   // Get array of rank's values
   const values = Object.values(rankTally);
   // Find unique values in the object
-  const uniqueValuesObj = new Set(values);
-  // Check if uniqueValues has size of 3 and values arr includes value of 2
-  if (uniqueValuesObj.size === 3 && values.includes(2)) {
+  const uniqueValues = new Set(values);
+  // Check if uniqueValues has size of 4 and values arr includes value of 2
+  if (uniqueValues.size === 4 && values.includes(2)) {
     return "isOnePair";
   }
   return false;
 };
 
+// WIP: checkWinLogic worked for individual conditions, but sometimes the condition detected when player wins.
+
 // Check win conditions from first to last order
 const checkWin = () => {
-  // suitTally = {};
-  // rankTally = {};
-  // playerHand = [
-  //   { name: "9", suit: "diamonds", rank: 9 },
-  //   { name: "9", suit: "diamonds", rank: 9 },
-  //   { name: "9", suit: "diamonds", rank: 9 },
-  //   { name: "9", suit: "diamonds", rank: 9 },
-  //   { name: "K", suit: "diamonds", rank: 13 },
-  // ];
+  console.log("checking win...", playerHand);
   tallyRanks(playerHand);
   tallySuits(playerHand);
 
@@ -122,42 +118,43 @@ const checkWin = () => {
   const twoPairsCount = isTwoPairs(rankTally);
   const onePairCount = isOnePair(rankTally);
 
-  // console.log(straightState);
-  // console.log(flushState);
-
   if (straightState && flushState) {
-    output = `Congratulations on winning STRAIGHT FLUSH. You've earned ${
+    output = `Congratulations on winning A STRAIGHT FLUSH. You've earned ${
       handConditions["Straight Flush"] * bet
     } to your coins!`;
     coins += handConditions["Straight Flush"] * bet;
   } else if (fourState) {
-    coins = `Congratulations on winning FOUR OF A KIND. You've earned ${
+    output = `Congratulations on winning A FOUR OF A KIND. You've earned ${
       handConditions["Four of a Kind"] * bet
     } to your coins!`;
     coins += handConditions["Four of a Kind"] * bet;
   } else if (threeState && twoPairsCount === 1) {
-    output = `FULL HOUSE'. ＋ ${
+    output = `Congratulations on winning A FULL HOUSE'. You've earned ${
       handConditions["Full House"] * bet
     } to your coins!`;
     coins += handConditions["Full House"] * bet;
   } else if (flushState) {
-    output = `FLUSH. ＋ ${handConditions.Flush * bet} to your coins!`;
+    output = `Congratulations on winning A FLUSH. You've earned ${
+      handConditions.Flush * bet
+    } to your coins!`;
     coins += handConditions.Flush * bet;
   } else if (straightState) {
-    output = `STRAIGHT. ＋ ${handConditions.Straight * bet} to your coins!`;
+    output = `Congratulations on winning A STRAIGHT. You've earned ${
+      handConditions.Straight * bet
+    } to your coins!`;
     coins += handConditions.Straight * bet;
   } else if (threeState) {
-    output = `THREE OF A KIND. ＋ ${
+    output = `Congratulations on winning A THREE OF A KIND. You've earned ${
       handConditions["Three of a Kind"] * bet
     } to your coins!`;
     coins += handConditions["Three of a Kind"] * bet;
   } else if (twoPairsCount) {
-    output = `TWO PAIRS. ＋ ${
+    output = `Congratulations on winning A TWO PAIRS. You've earned ${
       handConditions["Two Pairs"] * bet
     } to your coins!`;
     coins += handConditions["Two Pairs"] * bet;
   } else if (onePairCount) {
-    output = `Congratulations on winning ONE PAIR. You've earned ${
+    output = `Congratulations on winning A ONE PAIR. You've earned ${
       handConditions["One Pair"] * bet
     } to your coins!`;
     coins += handConditions["One Pair"] * bet;
@@ -166,29 +163,15 @@ const checkWin = () => {
     coins -= bet;
   }
   output += "<br> Click DEAL to play again.";
-  coinElement.innerHTML = `${coins} <br> COINS`;
+  coinsDisplay.innerHTML = `${coins} <br> COINS`;
   dealButton.disabled = false;
   incrementButton.disabled = false;
   decrementButton.disabled = false;
   playerHand = [];
+  rankTally = {};
+  suitTally = {};
+  // WIP: Replay. To re-display card event listener not working.
+  // dealButton.removeEventListener("click", checkWin);
+  dealButton.addEventListener("click", displayCards);
   return output;
 };
-
-// // Create function to calculate hand conditions
-// const setPointsWithMultiple = () => {
-//   const payoutContainer = document.createElement("div");
-//   payoutContainer.innerHTML = "";
-
-//   Object.keys(handConditions).forEach((key) => {
-//     const scoreContainer = document.createElement("div");
-//     scoreContainer.className = "score-container";
-//     const scoreKey = document.createElement("p");
-//     const scoreValue = document.createElement("p");
-//     scoreKey.innerHTML = key;
-//     // scoreValue.innerHTML = handConditions[key] * bet;
-//     scoreContainer.appendChild(scoreKey);
-//     scoreContainer.appendChild(scoreValue);
-//     payoutContainer.appendChild(scoreContainer);
-//   });
-// };
-// setPointsWithMultiple();

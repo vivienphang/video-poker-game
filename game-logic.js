@@ -45,9 +45,11 @@ const handConditions = {
 
 // Create default score table
 const tableElementOne = document.createElement("table");
+tableElementOne.classList.add("table-one");
 const tableBodyOne = document.createElement("tbody");
 const scoreTableHeaderOne = document.createElement("thead");
 const tableElementTwo = document.createElement("table");
+tableElementTwo.classList.add("table-two");
 const tableBodyTwo = document.createElement("tbody");
 const scoreTableHeaderTwo = document.createElement("thead");
 
@@ -125,12 +127,13 @@ const betIncrement = () => {
   }
   betDisplay.innerHTML = `${bet}`;
   coinsDisplay.innerHTML = `${coins - bet} COINS`;
+  return coins;
 };
 
+// WIP: Not decremeting properly as it takes in coins = 100.
 const betDecrement = () => {
-  if (bet > 1) {
-    bet -= 1;
-  } else {
+  bet -= 1;
+  if (bet < 1) {
     bet = 5;
   }
   betDisplay.innerHTML = `${bet}`;
@@ -143,29 +146,43 @@ decrementButton.addEventListener("click", betDecrement);
 // Display 5 cards
 const displayCards = () => {
   gameContainer.innerHTML = "";
-  console.log(playerHand);
   for (let i = 0; i < playerHand.length; i++) {
     const cardElement = document.createElement("div");
-    cardElement.className = "card";
+    // cardElement.classList.remove("card-front");
+    cardElement.classList.add("card");
     const cardImg = document.createElement("img");
     cardImg.setAttribute(
       "src",
       `public/52-card-images/${playerHand[i].cardImg}`
     );
     cardElement.appendChild(cardImg);
-    // cardElement.innerHTML = `${playerHand[i].name}${playerHand[i].suitsSymbol}`;
     cardImg.addEventListener("click", () => {
-      // console.log(cardElement);
       handleCardClick(cardElement, i);
     });
-    messageBoard.innerHTML = "Select cards to SWAP or click DRAW";
+    messageBoard.innerHTML = "Choose cards to SWAP";
     gameContainer.appendChild(cardElement);
   }
   incrementButton.disabled = true;
   decrementButton.disabled = true;
-  dealButton.innerHTML = "<h2>SWAP</h2>";
-  dealButton.disabled = true;
+  dealButton.disabled = false;
 };
+// WIP: Flip cards not functioning.
+// const displayCards = () => {
+//   for (let i = 0; i < playerHand.length; i++) {
+//     const cardElement = document.querySelector(".card-element");
+//     cardElement.classList.add("card-front");
+//     const cardImg = document.createElement("img");
+//     cardImg.setAttribute("src", `public/card-front.png`);
+//     // cardImg.style.width = "100px";
+//     // cardImg.style.height = "120px";
+//     cardElement.appendChild(cardImg);
+//     gameContainer.appendChild(cardElement);
+//   }
+//   incrementButton.disabled = true;
+//   decrementButton.disabled = true;
+//   dealButton.disabled = false;
+// };
+// displayCards();
 
 dealButton.addEventListener("click", displayCards);
 
@@ -190,7 +207,7 @@ const displaySwappedCards = () => {
     }
   }
   displayCards();
-  // messageBoard.innerHTML = checkWin(); // WIP: To create logic for winning condition
+  messageBoard.innerHTML = checkWin();
 };
 
 const handleCardClick = (cardElement, i) => {
@@ -206,12 +223,11 @@ const handleCardClick = (cardElement, i) => {
   // Switch button to enable when user selected a card
   if (cardElement.classList.contains("selected")) {
     console.log("card element:", cardElement);
-    dealButton.disabled = false;
+    dealButton.innerHTML = "<p>SWAP</p>";
     incrementButton.disabled = false;
     decrementButton.disabled = false;
   } else {
     // Switch button to disable and draw button to enable
-    dealButton.disabled = true;
     incrementButton.disabled = false;
     decrementButton.disabled = false;
   }

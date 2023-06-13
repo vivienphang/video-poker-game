@@ -5,14 +5,10 @@
 const createDeck = () => {
   const deck = [];
   const suits = ["hearts", "spades", "clubs", "diamonds"];
-  // const suitsSymbol = ["♥️", "♠️", "♣️", "♦️"];
-  const suitsColour = ["red", "black", "black", "red"];
 
   for (let i = 0; i < suits.length; i++) {
-    // setting the suit, symbol and colour
+    // setting the suit
     const currentSuit = suits[i];
-    // const currentSymbol = suitsSymbol[i];
-    // const currentColour = suitsColour[i];
     // setting the rank of the cards
     for (let j = 1; j <= 13; j++) {
       let cardName = `${j}`;
@@ -24,8 +20,6 @@ const createDeck = () => {
         name: cardName,
         suit: currentSuit,
         rank: j,
-        // suitsSymbol: currentSymbol,
-        // suitsColour: currentColour,
         cardImg: `${cardName}_of_${currentSuit}.png`,
       };
       deck.push(card);
@@ -43,9 +37,9 @@ const shuffleDeck = (cards) => {
   for (let i = 0; i < cards.length; i++) {
     // select a random index in the cards
     const randomIndex = Math.floor(Math.random() * cards.length);
-    const temp = cards[i]; // placeholder for deck[i]
-    cards[i] = cards[randomIndex]; // replace current card index with random index
-    cards[randomIndex] = temp; // replace the random index with the temp value
+    const temp = cards[i];
+    cards[i] = cards[randomIndex];
+    cards[randomIndex] = temp;
   }
   // console.log("shuffled cards:", cards);
   return cards;
