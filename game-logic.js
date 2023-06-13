@@ -1,54 +1,171 @@
 // ===============================================
-// ====== Creating buttons for game start ========
+// ====== Default settings and game logic ========
 // ===============================================
 
-// 1. Before starting the game, click bets "+" / "-" button.
-// 2. Then, click "Deal" button to start game.
-// 3. Player can choose which card to keep -> the selected card classname will be changed in CSS.
-// 4. Click button "Redraw" to redraw the cards -> change innerHTML.
-
-// Initialise all global queries
+// Message, score and game board
+const scoreContainer = document.querySelector("#score-container");
+const scoreBoard = document.querySelector("#score-board");
 const messageContainer = document.querySelector("#message-container");
-const gameContainer = document.querySelector("#game-container");
-const tableContainer = document.querySelector("#table-container");
 const messageBoard = document.querySelector("#message-board");
-const betButton = document.querySelector(".bet-btn");
+const gameContainer = document.querySelector("#game-container");
+
+// Buttons board
+const tableContainer = document.querySelector("#table-container");
+const betButtonContainer = document.querySelector(".bet-btn-container");
+const betDisplay = document.querySelector(".bet-display");
+const remainingBetDisplay = document.querySelector(".remaining-bet-display");
+const decrementButton = document.querySelector(".minus-btn");
+const incrementButton = document.querySelector(".plus-btn");
+const dealButtonContainer = document.querySelector(".deal-btn-container");
 const dealButton = document.querySelector(".deal-btn");
-const drawButton = document.querySelector(".draw-btn");
-betButton.innerHTML = "<h2>BET</h2>";
-dealButton.innerHTML = "<h2>DEAL</h2>";
-drawButton.innerHTML = "<h2>DRAW</h2>";
-drawButton.disabled = true;
 
 // Set default message
 messageBoard.innerHTML = `<p>Click DEAL to start a game</p>`;
 messageContainer.appendChild(messageBoard);
 
+// Set default buttons
+dealButton.innerHTML = "<p>DEAL</p>";
+
+// Game starts at 99 coins with default min. 1 coin bet
+let bet = 1;
+let coins = 100;
+betDisplay.innerHTML = `${bet}`;
+
+// Create list of possible win conditions and payouts
+const handConditions = {
+  "Straight Flush": 50, // === 5 same suit + 5 sequential order
+  "Four of a Kind": 25, // === 4 same rank
+  "Full House": 9, // ======== 3 same rank + 2 same other rank
+  Flush: 6, // =============== 5 same suit
+  Straight: 4, // ============ 5 sequential order
+  "Three of a Kind": 3, // === 3 same rank
+  "Two Pairs": 2, // ========= 2 same rank + 2 other same rank
+  "One Pair": 1, // ========== 1 same rank + 1 other same rank
+};
+
+// Create default score table
+const tableElementOne = document.createElement("table");
+const tableBodyOne = document.createElement("tbody");
+const scoreTableHeaderOne = document.createElement("thead");
+const tableElementTwo = document.createElement("table");
+const tableBodyTwo = document.createElement("tbody");
+const scoreTableHeaderTwo = document.createElement("thead");
+
+const tableOneHeaderArr = Object.keys(handConditions).splice(0, 4);
+// console.log(tableOneHeaderArr);
+const tableTwoHeaderArr = Object.keys(handConditions).splice(4, 8);
+let hands = [];
+let handPoints = [];
+for (const [key, value] of Object.entries(handConditions)) {
+  hands.push(key);
+  handPoints.push(value);
+}
+
+const setPointsWithMultiple = () => {
+  // Create table one's rows and columns
+  for (let i = 0; i < hands.length - 4; i++) {
+    // New row element
+    const rowElement = document.createElement("tr");
+    // Create vertical header cell
+    const headerCell = document.createElement("th");
+    headerCell.textContent = hands[i];
+    rowElement.appendChild(headerCell);
+
+    // Create data cells for each column
+    for (var j = 0; j < 5; j++) {
+      var dataCell = document.createElement("td");
+      const multiplier = 5 - j;
+      const value = handPoints[i] * multiplier;
+      dataCell.textContent = value;
+      rowElement.appendChild(dataCell);
+    }
+    // Append the row to the table body
+    tableBodyOne.appendChild(rowElement);
+    // Append the table body to the table
+    tableElementOne.appendChild(tableBodyOne);
+  }
+  // Create table two's rows and columns
+  for (let i = 4; i < hands.length; i++) {
+    // console.log("table 2:", hands[i]);
+    // New row element
+    const rowElement = document.createElement("tr");
+    // Create vertical header cell
+    const headerCell = document.createElement("th");
+    headerCell.textContent = hands[i];
+    rowElement.appendChild(headerCell);
+
+    // Create data cells for each column
+    for (var j = 0; j < 5; j++) {
+      var dataCell = document.createElement("td");
+      const multiplier = 5 - j;
+      const value = handPoints[i] * multiplier;
+      dataCell.textContent = value;
+      rowElement.appendChild(dataCell);
+    }
+    // Append the row to the table body
+    tableBodyTwo.appendChild(rowElement);
+    // Append the table body to the table
+    tableElementTwo.appendChild(tableBodyTwo);
+  }
+};
+setPointsWithMultiple();
+
+// Append the table to the table container
+scoreBoard.append(tableElementOne, tableElementTwo);
+
+// Update coin system
+const coinsDisplay = document.querySelector(".coins-display");
+coinsDisplay.innerHTML = `${coins} COINS`;
+
+// Create bet increment anddecrement function
+const betIncrement = () => {
+  bet += 1;
+  if (bet > 5) {
+    bet = 1;
+  }
+  betDisplay.innerHTML = `${bet}`;
+  coinsDisplay.innerHTML = `${coins - bet} COINS`;
+};
+
+const betDecrement = () => {
+  if (bet > 1) {
+    bet -= 1;
+  } else {
+    bet = 5;
+  }
+  betDisplay.innerHTML = `${bet}`;
+  coinsDisplay.innerHTML = `${coins + bet} COINS`;
+};
+
+incrementButton.addEventListener("click", betIncrement);
+decrementButton.addEventListener("click", betDecrement);
+
 // Display 5 cards
 const displayCards = () => {
   gameContainer.innerHTML = "";
   console.log(playerHand);
-  for (let i = 0; i < playerHand.length; i += 1) {
+  for (let i = 0; i < playerHand.length; i++) {
     const cardElement = document.createElement("div");
     cardElement.className = "card";
-    cardElement.innerHTML = `${playerHand[i].name}${playerHand[i].suitsSymbol}`;
-    cardElement.addEventListener("click", () => {
-      console.log(cardElement);
+    const cardImg = document.createElement("img");
+    cardImg.setAttribute(
+      "src",
+      `public/52-card-images/${playerHand[i].cardImg}`
+    );
+    cardElement.appendChild(cardImg);
+    // cardElement.innerHTML = `${playerHand[i].name}${playerHand[i].suitsSymbol}`;
+    cardImg.addEventListener("click", () => {
+      // console.log(cardElement);
       handleCardClick(cardElement, i);
     });
     messageBoard.innerHTML = "Select cards to SWAP or click DRAW";
     gameContainer.appendChild(cardElement);
   }
-  betButton.disabled = true;
+  incrementButton.disabled = true;
+  decrementButton.disabled = true;
   dealButton.innerHTML = "<h2>SWAP</h2>";
   dealButton.disabled = true;
-  drawButton.disabled = false;
 };
-
-// Event listeners
-betButton.addEventListener("click", () => {
-  console.log("bet button clicked"); // WIP: To create bet setting function.
-});
 
 dealButton.addEventListener("click", displayCards);
 
@@ -59,6 +176,21 @@ const cardSwap = {
   2: false,
   3: false,
   4: false,
+};
+
+// Putting back the swapped cards
+const displaySwappedCards = () => {
+  dealButton.innerHTML = `<h2>DEAL</h2>`;
+  dealButton.disabled = true;
+  incrementButton.disabled = true;
+  decrementButton.disabled = true;
+  for (let i = 0; i < playerHand.length; i++) {
+    if (cardSwap[i] === true) {
+      playerHand.splice(i, 1, newDeck.pop());
+    }
+  }
+  displayCards();
+  // messageBoard.innerHTML = checkWin(); // WIP: To create logic for winning condition
 };
 
 const handleCardClick = (cardElement, i) => {
@@ -75,20 +207,14 @@ const handleCardClick = (cardElement, i) => {
   if (cardElement.classList.contains("selected")) {
     console.log("card element:", cardElement);
     dealButton.disabled = false;
-    betButton.disabled = false;
-    drawButton.disabled = true;
+    incrementButton.disabled = false;
+    decrementButton.disabled = false;
   } else {
     // Switch button to disable and draw button to enable
     dealButton.disabled = true;
-    betButton.disabled = false;
-    drawButton.disabled = false;
+    incrementButton.disabled = false;
+    decrementButton.disabled = false;
   }
   // Handle the swap button click
-  dealButton.addEventListener("click", () => {
-    console.log("Check win");
-    dealButton.innerHTML = `<h2>DEAL</h2>`;
-    dealButton.disabled = true;
-    drawButton.disabled = true;
-    betButton.disabled = true;
-  });
+  dealButton.addEventListener("click", displaySwappedCards);
 };

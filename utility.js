@@ -5,27 +5,27 @@
 const createDeck = () => {
   const deck = [];
   const suits = ["hearts", "spades", "clubs", "diamonds"];
-  const suitsSymbol = ["♥️", "♠️", "♣️", "♦️"];
+  // const suitsSymbol = ["♥️", "♠️", "♣️", "♦️"];
   const suitsColour = ["red", "black", "black", "red"];
 
   for (let i = 0; i < suits.length; i++) {
     // setting the suit, symbol and colour
     const currentSuit = suits[i];
-    const currentSymbol = suitsSymbol[i];
-    const currentColour = suitsColour[i];
+    // const currentSymbol = suitsSymbol[i];
+    // const currentColour = suitsColour[i];
     // setting the rank of the cards
     for (let j = 1; j <= 13; j++) {
       let cardName = `${j}`;
-      if (cardName === "11") cardName = "J";
-      if (cardName === "12") cardName = "Q";
-      if (cardName === "13") cardName = "K";
-      if (cardName === "1") cardName = "A";
+      if (cardName === "11") cardName = "jack";
+      if (cardName === "12") cardName = "queen";
+      if (cardName === "13") cardName = "king";
+      if (cardName === "1") cardName = "ace";
       const card = {
         name: cardName,
         suit: currentSuit,
         rank: j,
-        suitsSymbol: currentSymbol,
-        suitsColour: currentColour,
+        // suitsSymbol: currentSymbol,
+        // suitsColour: currentColour,
         cardImg: `${cardName}_of_${currentSuit}.png`,
       };
       deck.push(card);
@@ -37,7 +37,7 @@ const createDeck = () => {
 
 const newDeck = createDeck();
 
-// shuffle the cards
+// Shuffle the cards
 const shuffleDeck = (cards) => {
   // loop over the cards array
   for (let i = 0; i < cards.length; i++) {
@@ -58,6 +58,6 @@ shuffleDeck(newDeck);
 
 let playerHand = [];
 
-// set the max length of playerHand to 5 as we only deal 5 cards
+// Set the max length of playerHand to 5 as we only deal 5 cards
 playerHand = newDeck.splice(0, 5);
 // console.log(playerHand);

@@ -10,24 +10,44 @@
   <body>
     <div id="main-container">
       <div id="game-header">
-        <h2>POKER HOUR</h2>
+        <h1><span>"POKER</span> <span>HOUR"</span></h1>
       </div>
-      <section id="message-container">
-        <div id="message-board"></div>
-        <!-- for displaying instructions, game status, score and bets -->
+      <section id="score-container">
+        <div id="score-board"></div>
+        <!-- for displaying score and bets -->
       </section>
+
       <section id="game-container">
+        <div id="poker-table">
+          <div class="table-top"></div>
+          <div class="table-middle"></div>
+          <div class="table-bottom"></div>
+        </div>
         <!-- for displaying game cards -->
         <img class="card-img" />
       </section>
+
+      <section id="message-container">
+        <div id="message-board"></div>
+        <!-- for displaying message and instructions -->
+      </section>
+
       <section id="table-container">
         <!-- for displaying buttons and bets -->
-        <button type="submit" class="bet-btn"></button>
-        <button type="submit" class="deal-btn"></button>
-        <button type="submit" class="draw-btn"></button>
+        <div class="bet-btn-container">
+          <button type="submit" class="minus-btn">—</button>
+          <div class="bet-display"></div>
+          <button type="submit" class="plus-btn">＋</button>
+          <div class="remaining-bet-display"></div>
+        </div>
+        <div class="coins-display"></div>
+        <div class="deal-btn-container">
+          <button type="submit" class="deal-btn"></button>
+        </div>
       </section>
     </div>
     <script src="utility.js"></script>
     <script src="game-logic.js"></script>
+    <script src="conditions.js"></script>
   </body>
 </html>

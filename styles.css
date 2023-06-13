@@ -7,74 +7,167 @@
   src: url(./public/BagelFatOne-Regular.ttf);
 }
 
+:root {
+  --main-color: #fff2d7;
+}
+
 body {
-  background-color: rgb(20, 60, 20);
-  font-family: customFont, sans-serif;
-  color: bisque;
-  background-color: rgb(20, 60, 20);
+  background: radial-gradient(circle, rgb(6, 87, 21) 0%, rgb(4, 42, 11) 100%);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "customFont", cursive;
+  color: var(--main-color);
+}
+
+h1 {
+  margin: 0;
+  font-size: 70px;
+  padding: 0;
+  color: var(--main-color);
+  text-shadow: 0 0.1em 20px rgba(0, 0, 0, 1), 0.05em -0.03em 0 rgba(0, 0, 0, 1),
+    0.05em 0.005em 0 rgb(142, 206, 90), 0em 0.08em 0 rgb(100, 201, 49),
+    0.05em 0.08em 0 rgba(0, 0, 0, 1), 0px -0.03em 0 rgba(0, 0, 0, 1),
+    -0.03em -0.03em 0 rgba(0, 0, 0, 1), -0.03em 0.08em 0 rgba(0, 0, 0, 1),
+    -0.03em 0 0 rgb(149, 213, 106);
+}
+h1 span {
+  transform: scale(0.9);
+  display: inline-block;
+  margin-top: 40px;
+}
+span:first-child {
+  animation: bop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards infinite
+    alternate;
+}
+span:last-child {
+  animation: bopB 1s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards
+    infinite alternate;
+}
+
+@keyframes bop {
+  0% {
+    transform: scale(0.9);
+  }
+  50%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bopB {
+  0% {
+    transform: scale(0.9);
+  }
+  80%,
+  100% {
+    transform: scale(1) rotateZ(-3deg);
+  }
 }
 
 #main-container {
-  /* background-color: royalblue; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100vh;
-  padding: 20px;
+  padding: 10px;
   overflow-y: scroll;
 }
 
 #game-header {
-  font-size: xx-large;
+  font-size: large;
   letter-spacing: 4px;
-  height: 25%;
-  width: 100%;
+  height: 10%;
+  width: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid white;
+  /* border: 1px solid white; */
+  margin-bottom: 10px;
 }
 
 /* ===================== Message Container UI ===================== */
 
-#message-container {
+#score-container {
   font-family: Arial, Helvetica, sans-serif;
   font-size: large;
-  width: 100%;
-  height: 100px;
+  margin-top: 20px;
+  width: 90%;
+  height: 20%;
   padding: 5px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  border: 1px solid rgb(193, 217, 126);
+  align-items: center;
+  /* border: 1px solid rgb(193, 217, 126); */
 }
 
+#score-board {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+}
+
+#message-container {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  width: 90%;
+  height: 15%;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* border: 1px solid rgb(217, 126, 217); */
+}
+
+table {
+  text-align: center;
+  margin-top: 50px;
+  border: 1px solid white;
+  background-color: hsl(0, 100%, 33%, 0.5);
+}
+td,
+th {
+  border: 0.2px solid rgb(151, 151, 151);
+  font-size: 30px;
+}
 /* ======================= Game Container UI ======================= */
 
 #game-container {
   font-family: Arial, Helvetica, sans-serif;
   font-size: x-large;
-  width: 100%;
-  height: 50%;
-  padding: 5px;
+  width: 90%;
+  height: 35%;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  border: 1px solid rgb(232, 162, 237);
+  align-items: center;
+  /* border: 1px solid rgb(232, 162, 237); */
+  /* background-color: #aa0000; */
 }
 
 .card {
-  border: 2px solid rgb(90, 180, 240);
-  height: 120px;
-  width: 80px;
+  /* border: 2px solid rgb(90, 180, 240); */
+  height: 45%;
+  width: auto;
+  margin: 3px;
 }
 
 .selected {
-  border: 7px solid rgb(45, 247, 143);
-  height: 120px;
-  width: 80px;
+  border: 2px solid rgb(45, 247, 143);
+  height: 48%;
+  width: auto;
+  margin: 3px;
+}
+
+.card > img {
+  width: auto;
+  height: 100%;
 }
 
 /* ======================= Table Container UI ======================= */
@@ -82,106 +175,207 @@ body {
 #table-container {
   font-family: Arial, Helvetica, sans-serif;
   font-size: x-large;
-  width: 100%;
-  height: 20%;
-  padding: 5px;
+  width: 90%;
+  height: 15%;
+  padding: 2px;
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
   border: 1px solid rgb(165, 238, 242);
 }
 
+.bet-btn-container {
+  display: flex;
+  align-items: center;
+}
+.bet-display {
+  font-family: customFont;
+  font-size: 20px;
+  padding: 2px 40px;
+  color: var(--main-color);
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border-radius: 50%; */
+  background-image: url("public/poker-coin.png");
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.bet-display:hover {
+  filter: brightness(2);
+  color: black;
+}
+.deal-btn-container {
+  display: flex;
+  justify-content: center;
+}
 .deal-btn {
   font-family: customFont;
-  border-radius: 50%;
-  border: 3px dashed red;
-  padding: 0.5em 1em 0.5em 1em;
-  background-color: rgb(26, 21, 13);
-  color: white;
+  font-size: large;
+  /* border-radius: 20%; */
+  border: 1px solid bisque;
+  /* padding: 2px 25px; */
+  background-color: rgb(34, 34, 34);
+  color: bisque;
+  height: 50px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 .deal-btn:hover {
-  background-color: rgb(233, 221, 89);
-  color: black;
+  background-color: rgb(255, 227, 194, 0.9);
+  border: 1px solid rgb(34, 34, 34);
+  color: rgb(34, 34, 34);
   cursor: pointer;
 }
-
 .deal-btn:disabled {
-  background-color: grey;
+  background-color: #a5a5a5;
+  border: 1px solid #aa0000;
   cursor: not-allowed;
-  color: white;
+  color: #d7d7d7;
 }
 
-.bet-btn {
-  font-family: customFont;
+.plus-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-right: 10px;
+  padding: 6px 8px;
   border-radius: 50%;
-  border: 3px dashed red;
-  padding: 0.5em 1em 0.5em 1em;
-  background-color: rgb(26, 21, 13);
-  color: white;
+  font-size: small;
 }
-
-.bet-btn:hover {
-  background-color: rgb(233, 221, 89);
-  color: black;
+.plus-btn:hover {
+  background-color: rgb(255, 227, 194, 0.9);
+  border: 1px solid rgb(34, 34, 34);
+  color: rgb(34, 34, 34);
   cursor: pointer;
 }
 
-.bet-btn:disabled {
-  background-color: grey;
+.plus-btn:disabled {
+  background-color: #a5a5a5;
+  border: 1px solid #aa0000;
   cursor: not-allowed;
-  color: white;
+  color: #d7d7d7;
+}
+
+.minus-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 50%;
+  font-size: medium;
+}
+.minus-btn:hover {
+  background-color: rgb(255, 227, 194, 0.9);
+  border: 1px solid rgb(34, 34, 34);
+  color: rgb(34, 34, 34);
+  cursor: pointer;
+}
+
+.minus-btn:disabled {
+  background-color: #a5a5a5;
+  border: 1px solid #aa0000;
+  cursor: not-allowed;
+  color: #d7d7d7;
 }
 
 .draw-btn {
   font-family: customFont;
-  border-radius: 50%;
-  border: 3px dashed red;
-  padding: 0.5em 1em 0.5em 1em;
-  background-color: rgb(26, 21, 13);
-  color: white;
+  font-size: large;
+  /* border-radius: 20%; */
+  border: 1px solid bisque;
+  /* padding: 2px 25px; */
+  background-color: rgb(34, 34, 34);
+  color: bisque;
+  height: 50px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .draw-btn:hover {
-  background-color: rgb(233, 221, 89);
-  color: black;
+  background-color: #ffe3c2e6;
+  border: 1px solid #222222;
+  color: #222222;
   cursor: pointer;
 }
 
 .draw-btn:disabled {
-  background-color: grey;
+  background-color: #a5a5a5;
+  border: 1px solid #aa0000;
   cursor: not-allowed;
-  color: white;
+  color: #d7d7d7;
 }
 
 /* ==================== Tablet / Mobile UI ==================== */
 
-@media (min-width: 280px) and (max-width: 450px) {
+@media (min-width: 280px) and (max-width: 600px) {
   #game-header {
     letter-spacing: 2px;
     color: bisque;
     font-size: x-large;
-    height: 100px;
+    height: 10%;
     width: 90%;
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
     text-align: center;
+    align-self: center;
     line-height: 1.5em;
   }
   #message-container {
     font-size: large;
     width: 90%;
-    height: inherit;
+    height: 30%;
   }
   #game-container {
     font-size: large;
     width: 90%;
-    height: inherit;
+    height: 40%;
   }
   #table-container {
+    display: flex;
+    flex-direction: flex;
+    justify-content: center;
     font-size: large;
     width: 90%;
-    height: inherit;
+    height: 10%;
+    margin: 0;
+  }
+  .bet-display {
+    border: 1px solid #ffe4c4;
+    padding: 0px 20px;
+    background-color: #222222;
+    color: #ffffff;
+    height: 50px;
+  }
+  h1 {
+    display: none;
+  }
+  /* h1 span {
+    line-height: 0em;
+    display: block;
+    text-align: center;
+  } */
+  .card {
+    /* border: 2px solid rgb(90, 180, 240); */
+    height: auto;
+    width: 100%;
+    margin: 3px;
+  }
+  .card > img {
+    width: 100%;
+    height: 100%;
   }
 }
