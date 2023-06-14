@@ -137,7 +137,7 @@ const betDecrement = () => {
     bet = 5;
   }
   betDisplay.innerHTML = `${bet}`;
-  coinsDisplay.innerHTML = `${coins + bet} COINS`;
+  coinsDisplay.innerHTML = `${coins - bet} COINS`;
 };
 
 incrementButton.addEventListener("click", betIncrement);
