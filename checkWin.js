@@ -226,5 +226,5 @@ const checkWin = () => {
 
   updateCoinValue(returnObj);
   endGame();
-  dealButton.addEventListener("click", startGame);
+  startGame();
 };

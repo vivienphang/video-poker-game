@@ -25,5 +25,3 @@ const endGame = () => {
 
 initGame();
 startGame();
-// swapCards();
-// startGame();
