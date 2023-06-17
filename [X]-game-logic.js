@@ -2,6 +2,9 @@
 // ====== Default settings and game logic ========
 // ===============================================
 
+// Global variables
+let gameStart = true;
+
 // Message, score and game board
 const scoreContainer = document.querySelector("#score-container");
 const scoreBoard = document.querySelector("#score-board");
@@ -145,12 +148,15 @@ decrementButton.addEventListener("click", betDecrement);
 
 // Display 5 cards
 const displayCards = () => {
+  gameStart = true;
   gameContainer.innerHTML = "";
+  console.log("playerhand at 153:", playerHand);
   for (let i = 0; i < playerHand.length; i++) {
     const cardElement = document.createElement("div");
     // cardElement.classList.remove("card-front");
     cardElement.classList.add("card");
     const cardImg = document.createElement("img");
+    console.log(`public/52-card-images/${playerHand[i].cardImg}`);
     cardImg.setAttribute(
       "src",
       `public/52-card-images/${playerHand[i].cardImg}`
@@ -187,7 +193,7 @@ const displayCards = () => {
 dealButton.addEventListener("click", displayCards);
 
 // Swap out clicked cards by making playerHand's card an object
-const cardSwap = {
+let cardSwap = {
   0: false,
   1: false,
   2: false,
@@ -197,7 +203,7 @@ const cardSwap = {
 
 // Putting back the swapped cards
 const displaySwappedCards = () => {
-  dealButton.innerHTML = `<h2>DEAL</h2>`;
+  dealButton.innerHTML = `<p>DEAL</p>`;
   dealButton.disabled = true;
   incrementButton.disabled = true;
   decrementButton.disabled = true;
@@ -206,11 +212,17 @@ const displaySwappedCards = () => {
       playerHand.splice(i, 1, newDeck.pop());
     }
   }
+  console.log("playerhand at 214:", playerHand);
   displayCards();
   messageBoard.innerHTML = checkWin();
+  gameStart = false;
+  dealButton.removeEventListener("click", displaySwappedCards);
+  shuffleDeck(newDeck);
+  playerHand = newDeck.splice(0, 5);
 };
 
 const handleCardClick = (cardElement, i) => {
+  if (!gameStart) return;
   if (cardSwap[i] === false) {
     // Add "selected" class here
     cardElement.classList.add("selected");
@@ -222,15 +234,21 @@ const handleCardClick = (cardElement, i) => {
   }
   // Switch button to enable when user selected a card
   if (cardElement.classList.contains("selected")) {
-    console.log("card element:", cardElement);
+    // Handle the swap button click
     dealButton.innerHTML = "<p>SWAP</p>";
+    dealButton.addEventListener("click", displaySwappedCards);
+    dealButton.removeEventListener("click", displayCards);
     incrementButton.disabled = false;
     decrementButton.disabled = false;
   } else {
     // Switch button to disable and draw button to enable
+    dealButton.innerHTML = "<p>DEAL</p>";
     incrementButton.disabled = false;
     decrementButton.disabled = false;
   }
-  // Handle the swap button click
-  dealButton.addEventListener("click", displaySwappedCards);
 };
+
+// WIP: Group the game states:
+// initGame() --> default settings
+// startNewGame() --> display cards
+// checkWin()

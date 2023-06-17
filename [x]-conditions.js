@@ -17,7 +17,9 @@ const tallyRanks = () => {
     rankTally[cardRank] = cardRank in rankTally ? rankTally[cardRank] + 1 : 1;
   }
 };
-tallyRanks();
+// tallyRanks();
+console.log("rank tally OBJ:", rankTally);
+
 // Helper function to tally suits
 const tallySuits = () => {
   for (let i = 0; i < playerHand.length; i++) {
@@ -27,8 +29,10 @@ const tallySuits = () => {
       cardSuits in suitTally ? suitTally[cardSuits] + 1 : 1;
   }
 };
-tallySuits();
-// console.log("suitTally obj", suitTally);
+// tallySuits();
+console.log("suit tally OBJ:", suitTally);
+
+// 4 same rank
 const isFourOfAKind = () => {
   if (
     Object.values(rankTally).length === 2 &&
@@ -107,10 +111,10 @@ const isOnePair = () => {
 // Check win conditions from first to last order
 const checkWin = () => {
   console.log("checking win...", playerHand);
-  tallyRanks(playerHand);
-  tallySuits(playerHand);
+  tallyRanks();
+  tallySuits();
 
-  // Define winning states to corresponding functions
+  // group THIS into a function, returns an object of winning states.
   const straightState = isStraight();
   const flushState = isFlush();
   const fourState = isFourOfAKind(rankTally);
@@ -118,6 +122,8 @@ const checkWin = () => {
   const twoPairsCount = isTwoPairs(rankTally);
   const onePairCount = isOnePair(rankTally);
 
+  // group this into generate msg function based on obj passed in from above.
+  // return the string --> used for showing the msg
   if (straightState && flushState) {
     output = `Congratulations on winning A STRAIGHT FLUSH. You've earned ${
       handConditions["Straight Flush"] * bet
@@ -170,6 +176,13 @@ const checkWin = () => {
   playerHand = [];
   rankTally = {};
   suitTally = {};
+  cardSwap = {
+    0: false,
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  };
   // WIP: Replay. To re-display card event listener not working.
   // dealButton.removeEventListener("click", checkWin);
   dealButton.addEventListener("click", displayCards);

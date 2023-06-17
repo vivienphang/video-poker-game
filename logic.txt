@@ -1,0 +1,49 @@
+Game flow.
+
+** Global var **
+1. playerhand
+2. suit tally
+3. rank tally
+4. card swap 
+5. game start = true
+6. bet 
+7. coins
+8. output
+9. handConditions
+
+** init game **
+1. Build deck, score board, message board, and buttons.
+2. Bet is set to 1 by default.
+3. Player can increment and decrement bet.
+
+** start game **
+1. game start = true
+2. Shuffle the new deck
+3. Deal 5 cards to playerhand
+2. Player clicks deal button to display 5 cards -> event listener for deal button
+3. Increment and decrement buttons are disabled.
+
+** swap cards **
+1. remove event listener for startgame
+2. Add event listener to display swapped cards
+2. Player select card(s) they want to swap.
+4. Display cards() to display swapped cards
+
+** check win **
+1. Once swapping is done, the game checks for win condition. 
+-- tally rank
+-- tally suit
+-- check whether player's hand fulfil any winning state.
+-- generate message depending on winning state
+-- show message (manipulate dom here)
+-- invoke function to adjust coins 
+
+** end game ** 
+2. Invoke a function reset game to reset card swap, playerhand, suit tally, rank tally.
+-- Enable buttons.
+-- Reset card swap, playerhand, suit tally, rank tally.
+-- game start = false
+
+** start game **
+1. game start = true
+5. Player has option to click deal button to replay.

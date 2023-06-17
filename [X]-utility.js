@@ -54,4 +54,3 @@ let playerHand = [];
 
 // Set the max length of playerHand to 5 as we only deal 5 cards
 playerHand = newDeck.splice(0, 5);
-// console.log(playerHand);

@@ -189,9 +189,10 @@ table.table-two > tbody > tr > th {
 }
 
 .selected {
-  height: 63%;
-  width: 20%;
+  height: 60%;
+  width: 18%;
   margin: 3px;
+  border: 2px solid lightgreen;
 }
 
 .card > img {
