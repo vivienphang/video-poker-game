@@ -4,7 +4,12 @@ Poker Hour is a one-player video poker game app. This game is built for complete
 
 # App Demo
 
-Coming Soon.
+![1](https://github.com/vivienphang/video-poker-game/assets/101629147/de89ec6b-76ca-4f4f-bb25-62671204e473)
+![2](https://github.com/vivienphang/video-poker-game/assets/101629147/5fb9066a-ff6f-4b3b-8e08-be29dcef643a)
+![3](https://github.com/vivienphang/video-poker-game/assets/101629147/9102e70f-fb5b-45a8-93eb-53f76bb8b120)
+![4](https://github.com/vivienphang/video-poker-game/assets/101629147/b2dac8af-680e-4820-bfde-f74dca7eafdd)
+![5](https://github.com/vivienphang/video-poker-game/assets/101629147/f3a530cf-f5fa-42d1-9622-893f15ecfd7a)
+
 
 # Game Flow
 
