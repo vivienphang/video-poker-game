@@ -180,7 +180,6 @@ const generateMessage = (winningState) => {
 };
 
 const updateCoinValue = (winningState) => {
-  console.log("running update coin value")
   let coinValue;
   const {
     straightState,
@@ -191,39 +190,29 @@ const updateCoinValue = (winningState) => {
     onePairCount,
   } = winningState;
 
-  console.log("current global coins:", coins)
   if (playerHand.length !== 0) {
-    console.log("winning state:", getWinningStates);
-
   if (straightState && flushState) {
-    coinValue = `${coins += handConditions["Straight Flush"] * bet} COINS`;
+    coins += handConditions["Straight Flush"] * bet;
   } else if (fourState) {
-    coinValue = `${coins += handConditions["Four of a Kind"] * bet} COINS`;
-    // coins += handConditions["Four of a Kind"] * bet;
+    coins += handConditions["Four of a Kind"] * bet;
   } else if (threeState && twoPairsCount) {
-    coinValue = `${coins += handConditions["Full House"] * bet} COINS`;
-    // coins += handConditions["Full House"] * bet;
+    coins += handConditions["Full House"] * bet;
   } else if (flushState) {
-    coinValue = `${coins += handConditions["Flush"] * bet} COINS`;
-    // coins += handConditions.Flush * bet;
+    coins += handConditions.Flush * bet;
   } else if (straightState) {
-    coinValue = `${coins += handConditions["Straight"] * bet} COINS`;
-    // coins += handConditions.Straight * bet;
+    coins += handConditions.Straight * bet;
   } else if (threeState) {
-    coinValue = `${coins += handConditions["Three of a Kind"] * bet} COINS`;
-    // coins += handConditions["Three of a Kind"] * bet;
+    coins += handConditions["Three of a Kind"] * bet;
   } else if (twoPairsCount) {
-    coinValue = `${coins += handConditions["Two Pairs"] * bet} COINS`;
-    // coins += handConditions["Two Pairs"] * bet;
+    coins += handConditions["Two Pairs"] * bet;
   } else if (onePairCount) {
-    coinValue = `${coins += handConditions["One Pair"] * bet} COINS`;
-    // coins += handConditions["One Pair"] * bet;
+    coins += handConditions["One Pair"] * bet;
   } else {
-    coinValue -= bet;
-    coinValue = `${coins} COINS`;
+    coins -= bet;
   }
+  coinValue = `${coins - bet} COINS`;
   return coinValue;
-}
+  }
 };
 
 // get current key
@@ -232,18 +221,16 @@ const checkWin = () => {
   tallySuits();
   const returnObj = getWinningStates();
   const outputMsg = generateMessage(returnObj);
-  console.log("outputMsg:", outputMsg);
   messageBoard.textContent = outputMsg;
-
-  // setTimeout(()=> {
-  //   console.log("running set timeout")
-  //   messageBoard.textContent = "Click DEAL to replay or refresh page to restart."
-  // }, 3000)
+  if (messageBoard.textContent = outputMsg) {
+    setTimeout(()=> {
+      console.log("running set timeout")
+      messageBoard.textContent = "Click DEAL to replay or refresh page to restart."
+    }, 5000)
+    clearTimeout();
+  }
   const updatedCoin = updateCoinValue(returnObj);
-  console.log("updatedCoin:", updatedCoin)
   coinsDisplay.textContent = updatedCoin;
-  updateCoinValue(returnObj);
-  // clearTimeout();
   endGame();
   startGame();
 };

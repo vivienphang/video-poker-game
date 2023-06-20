@@ -136,10 +136,16 @@ span:last-child {
 table {
   text-align: center;
   margin-top: 50px;
-  border: 1px solid white;
-  background-color: hsl(0, 100%, 33%, 0.5);
-  border-radius: 15%;
+  /* border: 1px solid rgb(89 89 89 / 90%); */
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  /* border-radius: 3%; */
   width: 100%;
+}
+
+table tbody {
+  background-color: #0000008a;
+  box-shadow: 5px 8px #28282866;
+  border-radius: 10px;
 }
 
 table.table-one > tbody > tr > th,
@@ -188,11 +194,11 @@ table.table-two > tbody > tr > th {
   align-items: center;
 }
 
-.selected {
+.selected > img {
   height: 60%;
   width: 18%;
   margin: 3px;
-  border: 2px solid lightgreen;
+  opacity: 0.5;
 }
 
 .card > img {

@@ -145,7 +145,8 @@ const initGame = () => {
   // Set default buttons and displays
   dealButton.innerHTML = "<p>DEAL</p>";
   betDisplay.innerHTML = `${bet}`;
-  coinsDisplay.innerHTML = `${coins} COINS`;
+  coinsDisplay.innerHTML = `${coins - bet} COINS`
+
   incrementButton.addEventListener("click", betIncrement);
   decrementButton.addEventListener("click", betDecrement);
 };
