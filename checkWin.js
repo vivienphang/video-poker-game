@@ -173,7 +173,7 @@ const generateMessage = (winningState) => {
         handConditions["One Pair"] * bet
       } to your coins!`;
     } else {
-      output = "Nice try! Click DEAL to replay or refresh to restart game.";
+      output = "Uh-oh, you lose this round. Better luck next time!";
     }
   }
   return output;

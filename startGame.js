@@ -35,7 +35,7 @@ const displayCards = (firstTime = true) => {
       cardImg.addEventListener("click", () => {
         handleCardClick(cardElement, i);
       });
-      messageBoard.innerHTML = "<p>Choose cards to SWAP</p>";
+      messageBoard.textContent = "Choose cards to SWAP";
     }
     gameContainer.appendChild(cardElement);
   }

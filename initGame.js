@@ -15,7 +15,6 @@ const coinsDisplay = document.querySelector(".coins-display");
 const tableContainer = document.querySelector("#table-container");
 const betButtonContainer = document.querySelector(".bet-btn-container");
 const betDisplay = document.querySelector(".bet-display");
-const remainingBetDisplay = document.querySelector(".remaining-bet-display");
 const decrementButton = document.querySelector(".minus-btn");
 const incrementButton = document.querySelector(".plus-btn");
 const dealButtonContainer = document.querySelector(".deal-btn-container");
@@ -137,9 +136,10 @@ const initGame = () => {
   createDeck();
   setPointsWithMultiple();
   scoreBoard.append(tableElementOne, tableElementTwo);
+  scoreContainer.appendChild(scoreBoard)
 
   // Set default message
-  messageBoard.innerHTML = `<p>Click DEAL to start a game</p>`;
+  messageBoard.textContent = "Click DEAL to start a game";
   messageContainer.appendChild(messageBoard);
 
   // Set default buttons and displays
