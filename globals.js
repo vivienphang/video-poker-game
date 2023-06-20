@@ -6,8 +6,7 @@
 // 5. game start = true
 // 6. bet
 // 7. coins
-// 8. output
-// 9. handConditions
+// 8. handConditions
 
 let playerHand = [];
 let bet = 1;

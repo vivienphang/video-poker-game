@@ -30,7 +30,6 @@ const tallySuits = () => {
 };
 console.log("suit tally OBJ:", suitTally);
 
-// 4 same rank
 const isFourOfAKind = () => {
   if (
     Object.values(rankTally).length === 2 &&
@@ -43,7 +42,6 @@ const isFourOfAKind = () => {
   return false;
 };
 
-// 5 same suits
 const isFlush = () => {
   if (Object.values(suitTally)[0] === 5) {
     return true;
@@ -51,7 +49,6 @@ const isFlush = () => {
   return false;
 };
 
-// 5 sequential rank order
 const isStraight = () => {
   // Sort the rank of cards first
   const sortedCards = playerHand.sort((a, b) => a.rank - b.rank);
@@ -67,7 +64,6 @@ const isStraight = () => {
   return false;
 };
 
-// 3 same rank
 const isThreeOfAKind = () => {
   // Get array of rank's values
   const values = Object.values(rankTally);
@@ -184,7 +180,8 @@ const generateMessage = (winningState) => {
 };
 
 const updateCoinValue = (winningState) => {
-  let hand = "";
+  console.log("running update coin value")
+  let coinValue;
   const {
     straightState,
     flushState,
@@ -193,25 +190,40 @@ const updateCoinValue = (winningState) => {
     twoPairsCount,
     onePairCount,
   } = winningState;
+
+  console.log("current global coins:", coins)
+  if (playerHand.length !== 0) {
+    console.log("winning state:", getWinningStates);
+
   if (straightState && flushState) {
-    coins += handConditions["Straight Flush"] * bet;
+    coinValue = `${coins += handConditions["Straight Flush"] * bet} COINS`;
   } else if (fourState) {
-    coins += handConditions["Four of a Kind"] * bet;
+    coinValue = `${coins += handConditions["Four of a Kind"] * bet} COINS`;
+    // coins += handConditions["Four of a Kind"] * bet;
   } else if (threeState && twoPairsCount) {
-    coins += handConditions["Flush House"] * bet;
+    coinValue = `${coins += handConditions["Full House"] * bet} COINS`;
+    // coins += handConditions["Full House"] * bet;
   } else if (flushState) {
-    coins += handConditions.Flush * bet;
+    coinValue = `${coins += handConditions["Flush"] * bet} COINS`;
+    // coins += handConditions.Flush * bet;
   } else if (straightState) {
-    coins += handConditions.Straight * bet;
+    coinValue = `${coins += handConditions["Straight"] * bet} COINS`;
+    // coins += handConditions.Straight * bet;
   } else if (threeState) {
-    coins += handConditions["Three of a Kind"] * bet;
+    coinValue = `${coins += handConditions["Three of a Kind"] * bet} COINS`;
+    // coins += handConditions["Three of a Kind"] * bet;
   } else if (twoPairsCount) {
-    coins += handConditions["Two Pairs"] * bet;
+    coinValue = `${coins += handConditions["Two Pairs"] * bet} COINS`;
+    // coins += handConditions["Two Pairs"] * bet;
   } else if (onePairCount) {
-    coins += handConditions["One Pair"] * bet;
+    coinValue = `${coins += handConditions["One Pair"] * bet} COINS`;
+    // coins += handConditions["One Pair"] * bet;
   } else {
-    coins -= bet;
+    coinValue -= bet;
+    coinValue = `${coins} COINS`;
   }
+  return coinValue;
+}
 };
 
 // get current key
@@ -221,10 +233,17 @@ const checkWin = () => {
   const returnObj = getWinningStates();
   const outputMsg = generateMessage(returnObj);
   console.log("outputMsg:", outputMsg);
-  console.log(typeof outputMsg);
   messageBoard.textContent = outputMsg;
 
+  // setTimeout(()=> {
+  //   console.log("running set timeout")
+  //   messageBoard.textContent = "Click DEAL to replay or refresh page to restart."
+  // }, 3000)
+  const updatedCoin = updateCoinValue(returnObj);
+  console.log("updatedCoin:", updatedCoin)
+  coinsDisplay.textContent = updatedCoin;
   updateCoinValue(returnObj);
+  // clearTimeout();
   endGame();
   startGame();
 };

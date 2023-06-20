@@ -20,7 +20,7 @@ const endGame = () => {
   suitTally = {};
 
   gameStart = false;
-  if (!gameStart) return;
+  // if (!gameStart) return;
 };
 
 initGame();
