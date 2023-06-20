@@ -1,6 +1,6 @@
 # :spades::diamonds: Poker Hour :hearts::clubs:
 
-Poker Hour is a one-player video poker game app. The player is given 100 coins to start betting from 1 to 5 coins. In this lean and simple app, the player can use this as a platform to practice getting the best condition to win by swapping the necessary cards. Score board is available for the player to compare winning coin prizes.
+Poker Hour is a one-player video poker game app. This game is built for complete beginners who want to get a hands-on practice on analyzing the best condition to win their poker cards hand. A score board is available for the player to compare the winning coin prizes.
 
 # App Demo
 
