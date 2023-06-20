@@ -30,9 +30,9 @@ const handleCardClick = (cardElement, i) => {
     cardElement.classList.remove("selected");
     cardSwap[i] = false;
   }
-  console.log("card element:", cardElement)
+  // console.log("card element:", cardElement)
   // Switch button to enable when user selected a card
-  if (cardElement.classList.contains("selected") >= 1) {
+  if (document.querySelectorAll.contains(".selected")) {
     // Handle the swap button click
     dealButton.innerHTML = "<p>SWAP</p>";
     dealButton.addEventListener("click", displaySwappedCards);
